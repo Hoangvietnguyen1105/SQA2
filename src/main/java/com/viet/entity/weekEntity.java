@@ -21,8 +21,7 @@ public class weekEntity {
 	private int id;
 	@Column(name="number")
 	private int number;
-	@OneToMany(mappedBy = "weeks")
-	private List<scheduleEntity> schedules = new ArrayList<>();
+	
 	
 	
 }

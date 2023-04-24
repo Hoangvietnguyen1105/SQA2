@@ -24,9 +24,8 @@ public class coursesGroupEntity {
 	private int groupCode;
 	@Column(name = "lab_code",nullable = true,unique = false)
 	private int labCode;
-	@ManyToOne
-	@JoinColumn(name = "course_id")
-	private courseEntity courses;
+	@Column(name = "courseCode")
+	private String courseCode;
 	public int getId() {
 		return id;
 	}
@@ -45,14 +44,14 @@ public class coursesGroupEntity {
 	public void setLabCode(int labCode) {
 		this.labCode = labCode;
 	}
-	public courseEntity getCourses() {
-		return courses;
+	public String getCourseCode() {
+		return courseCode;
 	}
-	public void setCourses(courseEntity courses) {
-		this.courses = courses;
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
 	}
-	@OneToMany(mappedBy = "coursesGroup")
-	private List<scheduleEntity> schedules = new ArrayList<>();
+
+	
 	
 	
 }

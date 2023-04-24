@@ -14,32 +14,41 @@ public class NewDTO {
 	private int labCode;
 	private int id;
 	
-    private String coursesCode;
-    
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+    private String course_code;
+
 	public int getGroupCode() {
 		return groupCode;
 	}
+
 	public void setGroupCode(int groupCode) {
 		this.groupCode = groupCode;
 	}
+
 	public int getLabCode() {
 		return labCode;
 	}
+
 	public void setLabCode(int labCode) {
 		this.labCode = labCode;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCourse_code() {
+		return course_code;
+	}
+
+	public void setCourse_code(String course_code) {
+		this.course_code = course_code;
+	}
+
 	
-	public String getCoursesCode() {
-		return coursesCode;
-	}
-	public void setCoursesCode(String coursesCode) {
-		this.coursesCode = coursesCode;
-	}
+    
    
 }

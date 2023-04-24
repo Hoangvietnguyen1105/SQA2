@@ -1,5 +1,7 @@
 package com.viet.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,9 +9,11 @@ import com.viet.converter.newConverter;
 import com.viet.dto.NewDTO;
 import com.viet.repository.courseRepository;
 import com.viet.repository.coursesGroupRepository;
-import com.viet.services.courseService;
+import com.viet.repository.schedulesRepository;
+import com.viet.services.IschedulesService;
 import com.viet.services.coursesGroupService;
 import com.viet.entity.coursesGroupEntity;
+import com.viet.entity.scheduleEntity;
 import com.viet.entity.courseEntity;
 @Service
 public class newService implements coursesGroupService{
@@ -19,26 +23,50 @@ public class newService implements coursesGroupService{
 	private courseRepository cR;
 	@Autowired
 	private newConverter nC;
+	@Autowired
+	private schedulesRepository sR;
+	@Autowired
+	private IschedulesService schedulesService;
 	@Override
-	public NewDTO save(NewDTO newDTO) {
+	public String save(NewDTO newDTO) {
 		// TODO Auto-generated method stub
-		courseEntity cE = cR.findOneBycoursesCode(newDTO.getCoursesCode());
+		coursesGroupEntity a =cGR.findByGroupCodeAndCourseCode(newDTO.getGroupCode(), newDTO.getCourse_code());
+		if(a != null) {
+			return "Duplicated";
+		}
 		coursesGroupEntity cGE = nC.toEntity(newDTO);
-		cGE.setCourses(cE);
 		cGE = cGR.save(cGE);
-		return nC.toDTO(cGE);
+		return "Success";
 	}
-	public NewDTO update(NewDTO newDTO) {
+	public String update(NewDTO newDTO) {
+		coursesGroupEntity a =cGR.findByGroupCodeAndCourseCodeAndIdNot(newDTO.getGroupCode(), newDTO.getCourse_code(),newDTO.getId());
+		if(a != null) {
+			return "Duplicated";
+		}
+		
 		coursesGroupEntity OcGE = cGR.findOne(newDTO.getId());
 		coursesGroupEntity NcGE	= nC.toEntity(newDTO, OcGE);
-		courseEntity cE = cR.findOneBycoursesCode(newDTO.getCoursesCode());
-		NcGE.setCourses(cE);
+		
 		NcGE = cGR.save(NcGE);
-		return nC.toDTO(NcGE);
+
+		return "Success";
 	}
 	public void delete(int id) {
+		List<scheduleEntity>a = sR.findBycoursesGroupId(id);
+		if(!a.isEmpty()) {
+			for(scheduleEntity item:a) {
+				schedulesService.delete(item.getId());
+			}
+		}
+		
 		cGR.delete(id);
 	}
+	@Override
+	public List<coursesGroupEntity> getCG(String courseCode) {
+		
+		return cGR.findBycourseCode(courseCode);
+	}
+	
 	
 	
 }

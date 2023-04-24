@@ -21,15 +21,15 @@ public class courseEntity {
 	private int id;
 	@Column(name="courses_code")
 	private String coursesCode;
-	@Column(name="courses")	//định nghĩa table name sẽ tạo ra trong mysql
+	@Column(name="faculty")
+	private String faculty;
+	@Column(name="name")	//định nghĩa table name sẽ tạo ra trong mysql
 	private String name;
 	@Column(name="credit_hour")
 	private String creditHour;
 	@Column(name="class_hour")
 	private String classHour;
-	@OneToMany(mappedBy = "courses")
-	private List<coursesGroupEntity> grp = new ArrayList<>();
-	public int getId() {  
+	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -59,12 +59,8 @@ public class courseEntity {
 	public void setClassHour(String classHour) {
 		this.classHour = classHour;
 	}
-	public List<coursesGroupEntity> getGrp() {
-		return grp;
-	}
-	public void setGrp(List<coursesGroupEntity> grp) {
-		this.grp = grp;
-	}
+	
+	
 	
 	
 }
