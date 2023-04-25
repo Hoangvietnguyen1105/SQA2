@@ -31,7 +31,7 @@ public class courseConverter {
 		entity.setClassHour(dto.getClassHour());
 		entity.setCreditHour(dto.getCreditHour());
 		entity.setName(dto.getName());
-		
+		entity.setCoursesCode(dto.getCoursesCode());
 		
 		return entity;
 	}

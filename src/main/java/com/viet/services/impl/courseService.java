@@ -25,8 +25,9 @@ public class courseService implements IcourseService{
 	@Override
 	public String save(courseDTO coursedto) {
 		courseEntity cE1  = cR.findOneBycoursesCode(coursedto.getCoursesCode());
-		if(cE1 != null) {
-			System.out.println(cE1);
+		courseEntity cE2 = cR.findOneByName(coursedto.getName());
+
+		if(cE1 != null || cE2 != null) {
 			return "Duplicate";
 			
 		}
@@ -41,8 +42,9 @@ public class courseService implements IcourseService{
 		
 	}
 	public String update(courseDTO coursedto) {
-		courseEntity cE2 = cR.findOneByName(coursedto.getName());
-		if(cE2 != null) {
+		courseEntity cE11  = cR.findOneBycoursesCodeAndIdNot(coursedto.getCoursesCode(),coursedto.getId());
+		courseEntity cE2 = cR.findOneByNameAndIdNot(coursedto.getName(),coursedto.getId());
+		if(cE2 != null || cE11 != null) {
 			
 			return "Duplicate";
 			
